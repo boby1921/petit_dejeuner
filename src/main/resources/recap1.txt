@@ -1,0 +1,15 @@
+Quel technos: 
+Spring, spring MVC, JSP-jstl, Spring security,Hibernate/jpa. 
+Bootstrap.
+
+Pourquoi : 
+c'est des technos que je maitrise plus ou moins,
+la facilite de mise en relation d'objets et les injections,
+ca aide beaucoup le developpeur dans son code, la possibilite de faire la validation jpa (par exemple ...).
+
+
+les prolèmes recontrés:
+-l'utilisation d'un select multiples selections et l'envoi des choix de la pge jsp au controller..
+je suis entrain de creer le binder adequat.
+
+-recuperer le user en session enregistré via  Spring security.
