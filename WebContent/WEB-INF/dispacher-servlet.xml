@@ -14,31 +14,17 @@
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd 
                            http://www.springframework.org/schema/security 
                            http://www.springframework.org/schema/security/spring-security-3.1.xsd ">
-                           
+
 	<context:component-scan base-package="fr.treeptik.petitdej.controller"></context:component-scan>
 	<mvc:annotation-driven />
-	
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/pages/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	
-<!-- 	<security:http pattern="/pages/login.jsp" security="none" />
 
-	<security:http>
-	 	<security:form-login login-page="/pages/login.jsp"
-			default-target-url="/index.do" authentication-failure-url="/pages/login.jsp" />
-		<security:intercept-url pattern="/**" access="ROLE_USER" />
-		<security:logout logout-url="/pages/logout.jsp"/>
-	</security:http>
-	
-	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:user-service> 
-				<security:user name="mak" authorities="ROLE_USER" disabled="false" password="123456" />
-				</security:user-service>
-		</security:authentication-provider>
-	</security:authentication-manager>
- -->
-</beans>
+	<security:http pattern="/pages/login.jsp" security="none" />
+</beans> 

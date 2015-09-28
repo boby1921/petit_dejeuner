@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Team implements Serializable{
@@ -18,6 +19,7 @@ public class Team implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	@OneToOne
 	private Membre responsable;
 	@OneToMany(mappedBy="team")
 	private List<Membre> membres;

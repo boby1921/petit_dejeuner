@@ -1,5 +1,7 @@
 package fr.treeptik.petitdej.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.service.spi.ServiceException;
@@ -42,6 +44,14 @@ public abstract class GenericService<T extends GenericDao<E, K>, E , K> {
 	public E findById(K id) throws Exception {
 		try {
 			return getDoa().findByID(id);
+		} catch (DAOException e) {
+			throw new ServiceException("erreur findbyid Service", e);
+		}
+	}
+	@Transactional()
+	public List<E> findAll() throws Exception {
+		try {
+			return getDoa().findAll();
 		} catch (DAOException e) {
 			throw new ServiceException("erreur findbyid Service", e);
 		}
