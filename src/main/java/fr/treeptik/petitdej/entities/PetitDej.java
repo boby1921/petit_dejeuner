@@ -12,6 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.DecimalMax;
+
+import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 public class PetitDej implements Serializable{
 
@@ -20,6 +23,7 @@ public class PetitDej implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	@NotEmpty
 	private Date datePetitDej;
 	private Long prix;
 	@Enumerated(EnumType.STRING)

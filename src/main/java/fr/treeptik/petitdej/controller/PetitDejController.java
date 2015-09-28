@@ -31,8 +31,9 @@ public class PetitDejController {
 
 	@RequestMapping(value = "/new.do", method = RequestMethod.GET)
 	public ModelAndView add() throws Exception {
-		ModelAndView modelAndView = new ModelAndView("petitdej");
+		ModelAndView modelAndView = new ModelAndView("addpetitdej");
 		modelAndView.addObject("petitdej", new PetitDej());
+		modelAndView.addObject("membres",membreService.findAll());
 		modelAndView.addObject("petitdejs", petitDejService.findAll());
 		return modelAndView;
 	}
@@ -40,7 +41,8 @@ public class PetitDejController {
 	@RequestMapping(value = "/edit.do", method = RequestMethod.GET)
 	public ModelAndView edit(@ModelAttribute("id") Long id) {
 		try {
-			ModelAndView modelAndView = new ModelAndView("petitdej");
+			ModelAndView modelAndView = new ModelAndView("addpetitdej");
+			modelAndView.addObject("membres",membreService.findAll());
 			PetitDej petitDej = petitDejService.findById(id);
 			if (petitDej == null)
 				return list();
@@ -71,7 +73,7 @@ public class PetitDejController {
 	public ModelAndView save(@Valid PetitDej petitdej, @ModelAttribute("organisateur.id") String organisateurId,
 			BindingResult result) throws NumberFormatException, Exception {
 		if (result.hasErrors()) {
-			return new ModelAndView("petitdej");
+			return new ModelAndView("addpetitdej");
 		}
 		System.out.println(organisateurId);
 		petitdej.setOrganisateur(membreService.findById(Long.valueOf(organisateurId)));

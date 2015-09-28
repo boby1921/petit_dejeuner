@@ -69,10 +69,11 @@
 				</f:select>
 				<%-- <f:input path="type" class="form-control" /> --%>
 			</div>
-		 	 <div class="form-group">
+			<div class="form-group">
 				<label>Organisateur :</label>
-			<f:input path="organisateur.nom"  class="form-control" />
-			<f:hidden path="organisateur.id"/>
+				<f:select path="organisateur.id" id="organisateur" items="${membres}"
+					itemValue="id" itemLabel="nom" class="form-control">
+				</f:select>
 			</div>
 			<input type="submit" value="Valider" class="btn btn-default" />
 		</f:form>
@@ -88,8 +89,5 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script src="script.js"></script>
-	<script src="jquery-1.11.3.min.js"></script>
-
 </body>
 </html>
