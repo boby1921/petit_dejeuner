@@ -74,7 +74,9 @@ public class PetitDejController {
 	public ModelAndView save(@Valid @ModelAttribute("petitdej") PetitDej petitdej, BindingResult result,@ModelAttribute("organisateur.id") String organisateurId
 			) throws NumberFormatException, Exception {
 		if (result.hasErrors()) {
-			return new ModelAndView("addpetitdej");
+			ModelAndView modelAndView = new ModelAndView("addpetitdej");
+			modelAndView.addObject("membres",membreService.findAll());
+			return modelAndView;
 		}
 		Membre membreOrganisateur = membreService.findById(Long.valueOf(organisateurId));
 		List<Membre> listInvites = new ArrayList<>();
