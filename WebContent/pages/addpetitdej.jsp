@@ -55,11 +55,13 @@
 			<f:hidden path="id" />
 			<div class="form-group">
 				<label>Date Prevu :</label>
-				<f:input path="datePetitDej" class="form-control" />
+				<f:input path="datePetitDej" class="form-control" placeholder="yyyy/mm/jj"/>
+				<f:errors path="prix" cssclass="error"></f:errors>
 			</div>
 			<div class="form-group">
 				<label>Prix :</label>
 				<f:input path="prix" class="form-control" />
+				<f:errors path="prix" cssclass="error"></f:errors>
 			</div>
 			<div class="form-group">
 				<label>Type :</label>
@@ -78,7 +80,6 @@
 			<input type="submit" value="Valider" class="btn btn-default" />
 		</f:form>
 		<a href="list.do">List des petits dejeuner</a>
-
 	</div>
 
 

@@ -1,7 +1,9 @@
 package fr.treeptik.petitdej.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import fr.treeptik.petitdej.entities.Membre;
 import fr.treeptik.petitdej.entities.PetitDej;
 import fr.treeptik.petitdej.service.MembreService;
 import fr.treeptik.petitdej.service.PetitDejService;
@@ -41,11 +44,13 @@ public class PetitDejController {
 	@RequestMapping(value = "/edit.do", method = RequestMethod.GET)
 	public ModelAndView edit(@ModelAttribute("id") Long id) {
 		try {
-			ModelAndView modelAndView = new ModelAndView("addpetitdej");
+			ModelAndView modelAndView = new ModelAndView("details-petitdej");
 			modelAndView.addObject("membres",membreService.findAll());
+			List<Membre> participants = petitDejService.listParticipantByPetitDej(id);
 			PetitDej petitDej = petitDejService.findById(id);
 			if (petitDej == null)
 				return list();
+			modelAndView.addObject("participants", participants);
 			modelAndView.addObject("petitdej", petitDej);
 			return modelAndView;
 		} catch (Exception e) {
@@ -56,10 +61,6 @@ public class PetitDejController {
 	@RequestMapping(value = "/list.do", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView modelAndView = new ModelAndView("list-petitdej");
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		User customUser = (User)auth.getPrincipal();
-//		int userId = customUser.getUserId();
-//		System.out.println(userId);
 		try {
 			modelAndView.addObject("petitdejs", petitDejService.findAll());
 		} catch (Exception e) {
@@ -70,13 +71,16 @@ public class PetitDejController {
 	}
 
 	@RequestMapping(value = "/save.do", method = RequestMethod.POST)
-	public ModelAndView save(@Valid PetitDej petitdej, @ModelAttribute("organisateur.id") String organisateurId,
-			BindingResult result) throws NumberFormatException, Exception {
+	public ModelAndView save(@Valid @ModelAttribute("petitdej") PetitDej petitdej, BindingResult result,@ModelAttribute("organisateur.id") String organisateurId
+			) throws NumberFormatException, Exception {
 		if (result.hasErrors()) {
 			return new ModelAndView("addpetitdej");
 		}
-		System.out.println(organisateurId);
-		petitdej.setOrganisateur(membreService.findById(Long.valueOf(organisateurId)));
+		Membre membreOrganisateur = membreService.findById(Long.valueOf(organisateurId));
+		List<Membre> listInvites = new ArrayList<>();
+		listInvites = petitDejService.listParticipantByTeam(membreOrganisateur.getTeam().getId());
+		petitdej.setParticipants(listInvites);
+		petitdej.setOrganisateur(membreOrganisateur);
 		try {
 			if (petitdej.getId() == null) {
 				petitDejService.save(petitdej);
